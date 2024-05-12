@@ -2,7 +2,7 @@ import express, { Application } from "express";
 import dotenv from "dotenv";
 // import routes from "./controllers/demoController";
 import routes from "./controllers/controller";
-import client from "./db/db";
+import getClient from "./db/db";
 
 //For env File
 dotenv.config();
@@ -19,7 +19,7 @@ app.listen(port, () => {
 });
 
 process.on("SIGINT", () => {
-  client.end((err: Error) => {
+  getClient().end((err: Error) => {
     if (err) {
       console.error("error during disconnection", err.stack);
     }
@@ -28,7 +28,7 @@ process.on("SIGINT", () => {
 });
 
 process.on("SIGTERM", () => {
-  client.end((err: Error) => {
+  getClient().end((err: Error) => {
     if (err) {
       console.error("error during disconnection", err.stack);
     }
